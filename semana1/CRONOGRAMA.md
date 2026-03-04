@@ -1,4 +1,4 @@
-# 🎮 GamesDev Factory - Semana 1: Brasil
+# 🎮 GamesDev Factory - Semana 1: Indonésia 🇮🇩
 
 **3 Jogos para Lançamento**  
 **Data**: 2026-03-04
