@@ -1,0 +1,221 @@
+{
+  "project": "gamesdev-factory-dashboard",
+  "version": "1.0.0",
+  "description": "Dashboard de controle e decisão em tempo real para GamesDev Factory",
+  "frontend": {
+    "framework": "React.js",
+    "styling": "Tailwind CSS",
+    "charts": "Recharts",
+    "state": "React Query",
+    "port": 3000
+  },
+  "backend": {
+    "framework": "Node.js + Express",
+    "database": "Firebase Firestore",
+    "analytics": "Firebase Analytics",
+    "cron": "Node-Cron",
+    "port": 3001
+  },
+  "integrations": {
+    "googlePlay": {
+      "enabled": true,
+      "api": "Google Play Developer API",
+      "updateFrequency": "15min",
+      "metrics": ["downloads", "revenue", "ratings", "reviews"]
+    },
+    "admob": {
+      "enabled": true,
+      "api": "AdMob API",
+      "updateFrequency": "15min",
+      "metrics": ["revenue", "ecpm", "fillRate", "impressions"]
+    },
+    "firebase": {
+      "enabled": true,
+      "api": "Firebase Analytics API",
+      "updateFrequency": "15min",
+      "metrics": ["dau", "mau", "retention", "sessions", "churn"]
+    },
+    "facebookAds": {
+      "enabled": true,
+      "api": "Facebook Marketing API",
+      "updateFrequency": "1h",
+      "metrics": ["spend", "impressions", "clicks", "installs", "cpi"]
+    },
+    "googleAds": {
+      "enabled": true,
+      "api": "Google Ads API",
+      "updateFrequency": "1h",
+      "metrics": ["spend", "impressions", "clicks", "installs", "cpi"]
+    }
+  },
+  "kpis": {
+    "business": {
+      "monthlyRevenue": {
+        "target": 25000,
+        "targetMax": 40000,
+        "currency": "USD"
+      },
+      "netMargin": {
+        "target": 0.60,
+        "unit": "percentage"
+      },
+      "marketingROI": {
+        "target": 3.0,
+        "unit": "ratio"
+      },
+      "gamesPerMonth": {
+        "target": 12,
+        "unit": "count"
+      }
+    },
+    "product": {
+      "downloadsD30": {
+        "target": 230000,
+        "unit": "count"
+      },
+      "retentionD1": {
+        "target": 0.40,
+        "unit": "percentage"
+      },
+      "retentionD7": {
+        "target": 0.25,
+        "unit": "percentage"
+      },
+      "arpdau": {
+        "target": 0.05,
+        "currency": "USD"
+      }
+    },
+    "development": {
+      "gamesPerWeek": {
+        "target": 3,
+        "unit": "count"
+      },
+      "timePerGame": {
+        "target": 2,
+        "unit": "days"
+      },
+      "codeReuse": {
+        "target": 0.75,
+        "unit": "percentage"
+      },
+      "bugRate": {
+        "target": 0.05,
+        "unit": "percentage"
+      }
+    }
+  },
+  "alerts": {
+    "critical": {
+      "revenueBelow50Percent": {
+        "condition": "revenue < 0.50 * target",
+        "action": "email + sms",
+        "autoAction": "android17_analyze"
+      },
+      "cpiAbove100Percent": {
+        "condition": "cpi > 2.0 * target",
+        "action": "email + sms",
+        "autoAction": "pause_campaign"
+      },
+      "criticalBug": {
+        "condition": "bug_severity == 'critical'",
+        "action": "email + sms",
+        "autoAction": "hotfix"
+      }
+    },
+    "warning": {
+      "retentionD1Below30": {
+        "condition": "retention_d1 < 0.30",
+        "action": "email",
+        "autoAction": "optimize_onboarding"
+      },
+      "ecpmBelow50Percent": {
+        "condition": "ecpm < 0.50 * target",
+        "action": "email",
+        "autoAction": "test_ad_formats"
+      }
+    },
+    "info": {
+      "revenueAbove150Percent": {
+        "condition": "revenue > 1.50 * target",
+        "action": "email",
+        "autoAction": "celebrate_and_expand"
+      }
+    }
+  },
+  "decisions": {
+    "auto": [
+      {
+        "condition": "roas > 4.0",
+        "action": "increase_budget_20_percent",
+        "market": "any"
+      },
+      {
+        "condition": "roas < 2.0",
+        "action": "decrease_budget_30_percent",
+        "market": "any"
+      },
+      {
+        "condition": "cpi > 1.5 * target",
+        "action": "pause_campaign",
+        "market": "any"
+      },
+      {
+        "condition": "retention_d1 < 0.30",
+        "action": "optimize_onboarding",
+        "game": "any"
+      },
+      {
+        "condition": "ecpm < 0.50 * target",
+        "action": "test_new_ad_format",
+        "game": "any"
+      }
+    ],
+    "requiresApproval": [
+      {
+        "condition": "revenue > 1.50 * target",
+        "action": "expand_to_similar_market",
+        "estimatedInvestment": 500
+      },
+      {
+        "condition": "game_revenue_d30 > 5000",
+        "action": "create_sequel_or_spinoff",
+        "estimatedInvestment": 2000
+      },
+      {
+        "condition": "new_market_opportunity",
+        "action": "develop_for_new_market",
+        "estimatedInvestment": 1000
+      }
+    ]
+  },
+  "notifications": {
+    "email": {
+      "enabled": true,
+      "recipients": ["afonso@email.com"],
+      "frequency": "realtime"
+    },
+    "sms": {
+      "enabled": true,
+      "recipients": ["+XX XXX XXX XXXX"],
+      "frequency": "critical_only"
+    },
+    "telegram": {
+      "enabled": true,
+      "recipients": ["@afonso"],
+      "frequency": "all"
+    },
+    "dashboard": {
+      "enabled": true,
+      "badge": true,
+      "frequency": "all"
+    }
+  },
+  "schedule": {
+    "fetchMetrics": "*/15 * * * *",
+    "analyzeData": "*/30 * * * *",
+    "autoDecisions": "0 * * * *",
+    "dailyReport": "0 9 * * *",
+    "weeklyReport": "0 9 * * 1"
+  }
+}
