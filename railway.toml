@@ -1,0 +1,5 @@
+[build]
+root = "dashboard/backend"
+
+[deploy]
+startCommand = "npm start"
