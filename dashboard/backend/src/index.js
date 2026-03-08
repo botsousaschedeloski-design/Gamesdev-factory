@@ -57,6 +57,24 @@ app.use('/api/decisions', decisionsRoutes);
 app.use('/api/alerts', alertsRoutes);
 app.use('/api/games', gamesRoutes);
 
+// Root route - Dashboard status
+app.get('/', (req, res) => {
+  res.json({
+    name: 'GamesDev Factory Dashboard',
+    version: '1.0.0',
+    status: 'running',
+    timestamp: new Date().toISOString(),
+    uptime: process.uptime(),
+    endpoints: {
+      health: '/health',
+      metrics: '/api/metrics/overview',
+      games: '/api/games',
+      decisions: '/api/decisions',
+      alerts: '/api/alerts/active'
+    }
+  });
+});
+
 // Health check
 app.get('/health', (req, res) => {
   res.json({
