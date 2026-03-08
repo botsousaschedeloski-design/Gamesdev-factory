@@ -17,6 +17,7 @@ const metricsRoutes = require('./routes/metrics');
 const decisionsRoutes = require('./routes/decisions');
 const alertsRoutes = require('./routes/alerts');
 const gamesRoutes = require('./routes/games');
+const grafanaRoutes = require('./routes/grafana');
 
 // Cron jobs
 const { fetchMetrics } = require('./cron/fetch-metrics');
@@ -56,6 +57,7 @@ app.use('/api/metrics', metricsRoutes);
 app.use('/api/decisions', decisionsRoutes);
 app.use('/api/alerts', alertsRoutes);
 app.use('/api/games', gamesRoutes);
+app.use('/grafana', grafanaRoutes);
 
 // Root route - Dashboard status
 app.get('/', (req, res) => {

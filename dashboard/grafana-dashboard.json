@@ -1,0 +1,233 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "gamesdev-factory",
+    "title": "GamesDev Factory Dashboard",
+    "tags": ["games", "mobile", "revenue"],
+    "timezone": "America/Sao_Paulo",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "1m",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": {"h": 4, "w": 6, "x": 0, "y": 0},
+        "type": "stat",
+        "title": "📥 Downloads Today",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "downloads"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 1000},
+                {"color": "green", "value": 5000}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        }
+      },
+      {
+        "id": 2,
+        "gridPos": {"h": 4, "w": 6, "x": 6, "y": 0},
+        "type": "stat",
+        "title": "💰 Revenue Today",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "revenue"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 500},
+                {"color": "green", "value": 1000}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        }
+      },
+      {
+        "id": 3,
+        "gridPos": {"h": 4, "w": 6, "x": 12, "y": 0},
+        "type": "stat",
+        "title": "👥 Daily Active Users",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "dau"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 1000},
+                {"color": "green", "value": 5000}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        }
+      },
+      {
+        "id": 4,
+        "gridPos": {"h": 4, "w": 6, "x": 18, "y": 0},
+        "type": "stat",
+        "title": "📊 ARPDAU",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "arpdau"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 0.05},
+                {"color": "green", "value": 0.10}
+              ]
+            }
+          }
+        },
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        }
+      },
+      {
+        "id": 5,
+        "gridPos": {"h": 8, "w": 12, "x": 0, "y": 4},
+        "type": "timeseries",
+        "title": "📈 Revenue (7 Days)",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "revenue"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "color": {"mode": "palette-classic"},
+            "lineWidth": 2,
+            "fillOpacity": 10
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "table", "placement": "right"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 6,
+        "gridPos": {"h": 8, "w": 12, "x": 12, "y": 4},
+        "type": "timeseries",
+        "title": "👥 Users (7 Days)",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "dau"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "color": {"mode": "palette-classic"},
+            "lineWidth": 2,
+            "fillOpacity": 10
+          }
+        },
+        "options": {
+          "legend": {"displayMode": "table", "placement": "right"},
+          "tooltip": {"mode": "single"}
+        }
+      },
+      {
+        "id": 7,
+        "gridPos": {"h": 8, "w": 24, "x": 0, "y": 12},
+        "type": "table",
+        "title": "🌍 Performance por Mercado",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "simpod-json-datasource", "uid": "gamesdev-api"},
+            "target": "markets"
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "custom": {
+              "align": "auto",
+              "displayMode": "auto"
+            }
+          }
+        },
+        "options": {
+          "showHeader": true,
+          "sortBy": [
+            {"displayName": "Revenue", "desc": true}
+          ]
+        }
+      }
+    ],
+    "time": {
+      "from": "now-7d",
+      "to": "now"
+    },
+    "annotations": {
+      "list": [
+        {
+          "builtIn": 1,
+          "datasource": "-- Grafana --",
+          "enable": true,
+          "hide": true,
+          "iconColor": "rgba(0, 211, 255, 1)",
+          "name": "Annotations & Alerts",
+          "type": "dashboard"
+        }
+      ]
+    }
+  },
+  "overwrite": true
+}
