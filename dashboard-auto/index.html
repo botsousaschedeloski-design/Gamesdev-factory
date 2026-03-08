@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 GamesDev Factory Dashboard</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1200px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        h1 { font-size: 28px; margin-bottom: 10px; }
+        .subtitle { color: #a0a0a0; font-size: 14px; }
+        .metrics-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 30px;
+        }
+        .metric-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255,255,255,0.1);
+        }
+        .metric-title { font-size: 14px; color: #a0a0a0; margin-bottom: 10px; }
+        .metric-value { font-size: 36px; font-weight: bold; margin-bottom: 10px; }
+        .metric-change {
+            font-size: 14px;
+            padding: 5px 10px;
+            border-radius: 20px;
+            display: inline-block;
+        }
+        .positive { background: rgba(76, 175, 80, 0.2); color: #4caf50; }
+        .section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .section-title {
+            font-size: 20px;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .market-list { list-style: none; }
+        .market-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .market-item:last-child { border-bottom: none; }
+        .market-name { font-size: 16px; }
+        .market-stats { display: flex; gap: 20px; }
+        .stat { text-align: right; }
+        .stat-label { font-size: 12px; color: #a0a0a0; }
+        .stat-value { font-size: 16px; font-weight: bold; }
+        .status-live { color: #4caf50; }
+        .status-dev { color: #ff9800; }
+        .status-planned { color: #2196f3; }
+        .loading { text-align: center; padding: 50px; color: #a0a0a0; }
+        .refresh-btn {
+            background: rgba(76, 175, 80, 0.2);
+            color: #4caf50;
+            border: none;
+            padding: 10px 20px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+        .last-update { text-align: center; color: #a0a0a0; font-size: 12px; margin-top: 20px; }
+        
+        /* Login */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .login-btn {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .metrics-grid { grid-template-columns: 1fr; }
+            .market-item { flex-direction: column; gap: 10px; text-align: center; }
+            .market-stats { justify-content: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>🔐 GamesDev Factory</h2>
+            <p style="color: #a0a0a0; margin-bottom: 20px;">Código de acesso</p>
+            <input type="password" id="access-code" class="login-input" placeholder="Alv170623" maxlength="20">
+            <button class="login-btn" onclick="checkAccess()">Acessar</button>
+            <p id="login-error" class="error hidden" style="color: #f44336; margin-top: 15px;">Código incorreto!</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <header>
+            <h1>🎮 GamesDev Factory Dashboard</h1>
+            <p class="subtitle">Dados em Tempo Real</p>
+            <button class="refresh-btn" onclick="fetchData()">🔄 Atualizar</button>
+        </header>
+
+        <div id="loading" class="loading">Carregando dados...</div>
+
+        <div id="content" class="hidden">
+            <!-- Metrics -->
+            <div class="metrics-grid">
+                <div class="metric-card">
+                    <div class="metric-title">📥 Downloads Hoje</div>
+                    <div class="metric-value" id="downloads">-</div>
+                    <div class="metric-change positive" id="downloads-change">▲0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">💰 Revenue Hoje</div>
+                    <div class="metric-value" id="revenue">-</div>
+                    <div class="metric-change positive" id="revenue-change">▲0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">👥 DAU</div>
+                    <div class="metric-value" id="dau">-</div>
+                    <div class="metric-change positive" id="dau-change">▲0%</div>
+                </div>
+                <div class="metric-card">
+                    <div class="metric-title">📊 ARPDAU</div>
+                    <div class="metric-value" id="arpdau">-</div>
+                    <div class="metric-change positive" id="arpdau-change">▲0%</div>
+                </div>
+            </div>
+
+            <!-- Markets -->
+            <div class="section">
+                <h2 class="section-title">🌍 Performance por Mercado</h2>
+                <ul class="market-list" id="market-list"></ul>
+            </div>
+
+            <!-- Games -->
+            <div class="section">
+                <h2 class="section-title">🎮 Jogos Ativos</h2>
+                <ul class="market-list" id="game-list"></ul>
+            </div>
+
+            <p class="last-update" id="last-update">Última atualização: -</p>
+        </div>
+    </div>
+
+    <script>
+        const ACCESS_CODE = 'Alv170623';
+        // Lê direto do GitHub (dados/metrics.json)
+        const DATA_URL = 'https://raw.githubusercontent.com/botsousaschedeloski-design/Gamesdev-factory/main/dados/metrics.json';
+
+        // Check access
+        function checkAccess() {
+            const code = document.getElementById('access-code').value;
+            if (code === ACCESS_CODE) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                localStorage.setItem('gamesdev_access', 'true');
+                fetchData();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        // Check if logged in
+        if (localStorage.getItem('gamesdev_access') === 'true') {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            fetchData();
+        }
+
+        document.getElementById('access-code').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAccess();
+        });
+
+        // Fetch data from GitHub
+        async function fetchData() {
+            const loading = document.getElementById('loading');
+            const content = document.getElementById('content');
+
+            loading.classList.remove('hidden');
+            content.classList.add('hidden');
+
+            try {
+                const response = await fetch(DATA_URL + '?t=' + Date.now()); // Cache bust
+                if (!response.ok) throw new Error('Falha ao carregar');
+                
+                const data = await response.json();
+
+                // Update metrics
+                document.getElementById('downloads').textContent = data.metrics.downloadsToday.toLocaleString();
+                document.getElementById('revenue').textContent = '$' + data.metrics.revenueToday.toLocaleString();
+                document.getElementById('dau').textContent = data.metrics.dau.toLocaleString();
+                document.getElementById('arpdau').textContent = '$' + data.metrics.arpdau.toFixed(2);
+
+                // Update markets
+                const marketList = document.getElementById('market-list');
+                marketList.innerHTML = data.markets.map(m => `
+                    <li class="market-item">
+                        <span class="market-name">${m.flag} ${m.name}</span>
+                        <div class="market-stats">
+                            <div class="stat">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$${m.revenue}</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Downloads</div>
+                                <div class="stat-value">${m.downloads.toLocaleString()}</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Retention D1</div>
+                                <div class="stat-value ${m.retentionD1 > 40 ? 'status-live' : ''}">${m.retentionD1}%</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Status</div>
+                                <div class="stat-value status-${m.status}">${m.status.toUpperCase()}</div>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+
+                // Update games
+                const gameList = document.getElementById('game-list');
+                gameList.innerHTML = data.games.map(g => `
+                    <li class="market-item">
+                        <span class="market-name">🎮 ${g.name} (${g.market})</span>
+                        <div class="market-stats">
+                            <div class="stat">
+                                <div class="stat-label">Status</div>
+                                <div class="stat-value status-${g.status}">${g.status.toUpperCase()}</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Players</div>
+                                <div class="stat-value">${g.players.toLocaleString()}</div>
+                            </div>
+                            <div class="stat">
+                                <div class="stat-label">Revenue</div>
+                                <div class="stat-value">$${g.revenue}</div>
+                            </div>
+                        </div>
+                    </li>
+                `).join('');
+
+                loading.classList.add('hidden');
+                content.classList.remove('hidden');
+                document.getElementById('last-update').textContent = 'Última atualização: ' + new Date().toLocaleString('pt-BR');
+
+            } catch (err) {
+                loading.innerHTML = 'Erro ao carregar dados. <button class="refresh-btn" onclick="location.reload()">Recarregar</button>';
+            }
+        }
+
+        // Auto-refresh every 5 minutes
+        setInterval(fetchData, 300000);
+    </script>
+</body>
+</html>

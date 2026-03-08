@@ -1,0 +1,95 @@
+{
+  "lastUpdate": "2026-03-08T18:00:00Z",
+  "metrics": {
+    "downloadsToday": 12450,
+    "revenueToday": 1234,
+    "dau": 8450,
+    "arpdau": 0.06
+  },
+  "markets": [
+    {
+      "name": "Índia",
+      "flag": "🇮🇳",
+      "revenue": 456,
+      "downloads": 3450,
+      "retentionD1": 45,
+      "status": "live"
+    },
+    {
+      "name": "Indonésia",
+      "flag": "🇮🇩",
+      "revenue": 312,
+      "downloads": 2890,
+      "retentionD1": 42,
+      "status": "dev"
+    },
+    {
+      "name": "Paquistão",
+      "flag": "🇵🇰",
+      "revenue": 234,
+      "downloads": 2340,
+      "retentionD1": 40,
+      "status": "dev"
+    },
+    {
+      "name": "Bangladesh",
+      "flag": "🇧🇩",
+      "revenue": 0,
+      "downloads": 0,
+      "retentionD1": 0,
+      "status": "planned"
+    },
+    {
+      "name": "Nigéria",
+      "flag": "🇳🇬",
+      "revenue": 0,
+      "downloads": 0,
+      "retentionD1": 0,
+      "status": "planned"
+    }
+  ],
+  "games": [
+    {
+      "name": "Teen Patti",
+      "market": "Índia",
+      "status": "live",
+      "players": 1234,
+      "revenue": 300
+    },
+    {
+      "name": "Slot Machine",
+      "market": "Índia",
+      "status": "live",
+      "players": 2345,
+      "revenue": 500
+    },
+    {
+      "name": "Carrom 3D",
+      "market": "Índia",
+      "status": "live",
+      "players": 987,
+      "revenue": 156
+    },
+    {
+      "name": "Domino QQ",
+      "market": "Indonésia",
+      "status": "dev",
+      "players": 0,
+      "revenue": 0
+    },
+    {
+      "name": "Slot Wayang",
+      "market": "Indonésia",
+      "status": "dev",
+      "players": 0,
+      "revenue": 0
+    },
+    {
+      "name": "Capsa Online",
+      "market": "Indonésia",
+      "status": "dev",
+      "players": 0,
+      "revenue": 0
+    }
+  ]
+}
