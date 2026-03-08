@@ -1,0 +1,421 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>🎮 GamesDev Factory - Dashboard Real</title>
+    <style>
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            color: #fff;
+            min-height: 100vh;
+            padding: 20px;
+        }
+        .container { max-width: 1400px; margin: 0 auto; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            padding: 20px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+        }
+        h1 { font-size: 28px; margin-bottom: 10px; }
+        .subtitle { color: #a0a0a0; font-size: 14px; }
+        
+        /* Status Cards */
+        .status-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+        .status-card {
+            background: rgba(255,255,255,0.1);
+            border-radius: 12px;
+            padding: 20px;
+            text-align: center;
+        }
+        .status-number { font-size: 36px; font-weight: bold; margin-bottom: 5px; }
+        .status-label { font-size: 12px; color: #a0a0a0; }
+        
+        /* Progress Bars */
+        .progress-section {
+            background: rgba(255,255,255,0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .project-item {
+            margin-bottom: 25px;
+            padding-bottom: 25px;
+            border-bottom: 1px solid rgba(255,255,255,0.1);
+        }
+        .project-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
+        .project-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        .project-name { font-size: 18px; font-weight: bold; }
+        .project-status {
+            padding: 5px 12px;
+            border-radius: 20px;
+            font-size: 12px;
+            font-weight: bold;
+        }
+        .status-done { background: rgba(76, 175, 80, 0.3); color: #4caf50; }
+        .status-progress { background: rgba(255, 152, 0, 0.3); color: #ff9800; }
+        .status-todo { background: rgba(96, 96, 96, 0.3); color: #a0a0a0; }
+        
+        .progress-bar {
+            background: rgba(0,0,0,0.3);
+            border-radius: 10px;
+            height: 20px;
+            overflow: hidden;
+            margin-bottom: 10px;
+        }
+        .progress-fill {
+            height: 100%;
+            border-radius: 10px;
+            transition: width 0.5s ease;
+        }
+        .progress-100 { background: linear-gradient(90deg, #4caf50, #8bc34a); }
+        .progress-75 { background: linear-gradient(90deg, #ff9800, #ffc107); }
+        .progress-50 { background: linear-gradient(90deg, #ff9800, #ff9800); }
+        .progress-25 { background: linear-gradient(90deg, #f44336, #ff9800); }
+        .progress-0 { background: linear-gradient(90deg, #607d8b, #9e9e9e); }
+        
+        .task-list {
+            list-style: none;
+            margin-top: 10px;
+        }
+        .task-item {
+            padding: 8px 0;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+        }
+        .task-icon { margin-right: 10px; }
+        .task-done { color: #4caf50; }
+        .task-todo { color: #a0a0a0; }
+        
+        /* Financial Section */
+        .financial-section {
+            background: rgba(76, 175, 80, 0.1);
+            border: 2px solid rgba(76, 175, 80, 0.3);
+            border-radius: 15px;
+            padding: 25px;
+            margin-bottom: 20px;
+        }
+        .financial-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+        .financial-item {
+            text-align: center;
+            padding: 15px;
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+        }
+        .financial-value { font-size: 28px; font-weight: bold; margin-bottom: 5px; }
+        .financial-label { font-size: 12px; color: #a0a0a0; }
+        .coming-soon {
+            background: rgba(255, 152, 0, 0.2);
+            color: #ff9800;
+            padding: 3px 8px;
+            border-radius: 10px;
+            font-size: 11px;
+        }
+        
+        /* Next Steps */
+        .next-steps {
+            background: rgba(33, 150, 243, 0.1);
+            border-left: 4px solid #2196f3;
+            padding: 20px;
+            margin-bottom: 20px;
+        }
+        .next-steps h3 { margin-bottom: 15px; color: #2196f3; }
+        .step-item {
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+        }
+        .step-item:last-child { border-bottom: none; }
+        .step-priority {
+            display: inline-block;
+            padding: 2px 8px;
+            border-radius: 10px;
+            font-size: 10px;
+            margin-right: 10px;
+        }
+        .priority-high { background: rgba(244, 67, 54, 0.3); color: #f44336; }
+        .priority-medium { background: rgba(255, 152, 0, 0.3); color: #ff9800; }
+        .priority-low { background: rgba(33, 150, 243, 0.3); color: #2196f3; }
+        
+        /* Login */
+        #login-screen {
+            position: fixed;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        .login-box {
+            background: rgba(255,255,255,0.1);
+            padding: 40px;
+            border-radius: 20px;
+            text-align: center;
+            max-width: 400px;
+            width: 90%;
+        }
+        .login-input {
+            width: 100%;
+            padding: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 10px;
+            background: rgba(255,255,255,0.1);
+            color: #fff;
+            font-size: 16px;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .login-btn {
+            background: #4caf50;
+            color: #fff;
+            border: none;
+            padding: 15px 40px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-size: 16px;
+            width: 100%;
+        }
+        .hidden { display: none !important; }
+        
+        @media (max-width: 768px) {
+            .status-grid, .financial-grid { grid-template-columns: 1fr 1fr; }
+            .project-header { flex-direction: column; gap: 10px; text-align: center; }
+        }
+    </style>
+</head>
+<body>
+    <!-- Login -->
+    <div id="login-screen">
+        <div class="login-box">
+            <h2>🔐 GamesDev Factory</h2>
+            <p style="color: #a0a0a0; margin: 15px 0 25px 0;">Dashboard de Desenvolvimento</p>
+            <input type="password" id="access-code" class="login-input" placeholder="Código: Alv170623" maxlength="20">
+            <button class="login-btn" onclick="checkAccess()">Acessar</button>
+            <p id="login-error" class="error hidden" style="color: #f44336; margin-top: 15px;">Código incorreto!</p>
+        </div>
+    </div>
+
+    <!-- Dashboard -->
+    <div id="dashboard" class="container hidden">
+        <header>
+            <h1>🎮 GamesDev Factory Dashboard</h1>
+            <p class="subtitle">Status Real dos Projetos • Atualizado: <span id="last-update">-</span></p>
+        </header>
+
+        <!-- Status Overview -->
+        <div class="status-grid">
+            <div class="status-card">
+                <div class="status-number" style="color: #4caf50;">3</div>
+                <div class="status-label">✅ Jogos Completos</div>
+            </div>
+            <div class="status-card">
+                <div class="status-number" style="color: #ff9800;">3</div>
+                <div class="status-label">🔨 Em Desenvolvimento</div>
+            </div>
+            <div class="status-card">
+                <div class="status-number" style="color: #2196f3;">6</div>
+                <div class="status-label">📋 Planejados</div>
+            </div>
+            <div class="status-card">
+                <div class="status-number" style="color: #9c27b0;">12</div>
+                <div class="status-label">🎯 Total Projetos</div>
+            </div>
+        </div>
+
+        <!-- Financial (Placeholder) -->
+        <div class="financial-section">
+            <h2 style="margin-bottom: 20px;">💰 Projeção Financeira</h2>
+            <div class="financial-grid">
+                <div class="financial-item">
+                    <div class="financial-value">R$ 0,00</div>
+                    <div class="financial-label">Receita Atual</div>
+                    <span class="coming-soon">Em breve</span>
+                </div>
+                <div class="financial-item">
+                    <div class="financial-value">R$ 0,00</div>
+                    <div class="financial-label">Receita Projetada (Mês 1)</div>
+                    <span class="coming-soon">R$ 10-15k</span>
+                </div>
+                <div class="financial-item">
+                    <div class="financial-value">R$ 0,00</div>
+                    <div class="financial-label">Receita Projetada (Mês 3)</div>
+                    <span class="coming-soon">R$ 35-55k</span>
+                </div>
+                <div class="financial-item">
+                    <div class="financial-value">R$ 0,00</div>
+                    <div class="financial-label">Custo Infra</div>
+                    <span class="coming-soon">$0/mês</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Projects Progress -->
+        <div class="progress-section">
+            <h2 style="margin-bottom: 20px;">📊 Status dos Projetos</h2>
+
+            <!-- Índia (Completo) -->
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-name">🇮🇳 Índia - Semana 1</div>
+                    <span class="project-status status-done">✅ COMPLETO</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-100" style="width: 100%;"></div>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">100% Completo</div>
+                <ul class="task-list">
+                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Teen Patti - Código 100% pronto</span></li>
+                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Slot Machine - Código 100% pronto</span></li>
+                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Carrom 3D - Código 100% pronto</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Unity + Build APK - Aguardando</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Play Store Upload - Pendente</span></li>
+                </ul>
+            </div>
+
+            <!-- Indonésia (Em Desenvolvimento) -->
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-name">🇮🇩 Indonésia - Semana 2</div>
+                    <span class="project-status status-progress">🔨 EM DESENVOLVIMENTO</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
+                <ul class="task-list">
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Domino QQ Online - A iniciar</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Slot Wayang - A iniciar</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Capsa Online - A iniciar</span></li>
+                </ul>
+            </div>
+
+            <!-- Paquistão (Planejado) -->
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-name">🇵🇰 Paquistão - Semana 3</div>
+                    <span class="project-status status-todo">📋 PLANEJADO</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
+                <ul class="task-list">
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Cricket Betting Sim - 80% reuse Índia</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Teen Patti Cricket - 85% reuse</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Rummy Pakistan - 80% reuse</span></li>
+                </ul>
+            </div>
+
+            <!-- Bangladesh (Planejado) -->
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-name">🇧🇩 Bangladesh - Semana 4</div>
+                    <span class="project-status status-todo">📋 PLANEJADO</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
+                <ul class="task-list">
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Teen Patti Bangladesh - 85% reuse</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Cricket Quiz - 75% reuse</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Ludo Bangladesh - 70% reuse</span></li>
+                </ul>
+            </div>
+
+            <!-- Nigéria (Planejado) -->
+            <div class="project-item">
+                <div class="project-header">
+                    <div class="project-name">🇳🇬 Nigéria - Semana 5</div>
+                    <span class="project-status status-todo">📋 PLANEJADO</span>
+                </div>
+                <div class="progress-bar">
+                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                </div>
+                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
+                <ul class="task-list">
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Football Quiz - A iniciar</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Afro Slots - A iniciar</span></li>
+                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Ayo Board - A iniciar</span></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Next Steps -->
+        <div class="next-steps">
+            <h3>🎯 Próximos Passos</h3>
+            <div class="step-item">
+                <span class="step-priority priority-high">ALTA</span>
+                <strong>Começar código Indonésia</strong> - Domino QQ, Slot Wayang, Capsa Online
+            </div>
+            <div class="step-item">
+                <span class="step-priority priority-high">ALTA</span>
+                <strong>Unity Índia</strong> - Importar scripts, criar cenas, build APKs
+            </div>
+            <div class="step-item">
+                <span class="step-priority priority-medium">MÉDIA</span>
+                <strong>Play Store</strong> - Configurar conta, upload APKs Índia
+            </div>
+            <div class="step-item">
+                <span class="step-priority priority-low">BAIXA</span>
+                <strong>Dashboard Financeiro</strong> - Ativar quando tiver receita real
+            </div>
+        </div>
+
+        <div class="last-update" style="text-align: center; color: #a0a0a0; font-size: 12px; margin-top: 20px;">
+            📊 Dashboard mostra dados REAIS do desenvolvimento<br>
+            💰 Financeiro atualizará quando jogos estiverem em produção
+        </div>
+    </div>
+
+    <script>
+        const ACCESS_CODE = 'Alv170623';
+
+        function checkAccess() {
+            const code = document.getElementById('access-code').value;
+            if (code === ACCESS_CODE) {
+                document.getElementById('login-screen').classList.add('hidden');
+                document.getElementById('dashboard').classList.remove('hidden');
+                localStorage.setItem('gamesdev_access', 'true');
+                updateTimestamp();
+            } else {
+                document.getElementById('login-error').classList.remove('hidden');
+            }
+        }
+
+        if (localStorage.getItem('gamesdev_access') === 'true') {
+            document.getElementById('login-screen').classList.add('hidden');
+            document.getElementById('dashboard').classList.remove('hidden');
+            updateTimestamp();
+        }
+
+        document.getElementById('access-code').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') checkAccess();
+        });
+
+        function updateTimestamp() {
+            document.getElementById('last-update').textContent = new Date().toLocaleString('pt-BR');
+        }
+    </script>
+</body>
+</html>
