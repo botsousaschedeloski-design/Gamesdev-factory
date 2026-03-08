@@ -1,0 +1,143 @@
+{
+  "dashboard": {
+    "id": null,
+    "uid": "gamesdev-simple",
+    "title": "GamesDev Factory - Simple",
+    "tags": ["games"],
+    "timezone": "America/Sao_Paulo",
+    "schemaVersion": 38,
+    "version": 1,
+    "refresh": "1m",
+    "panels": [
+      {
+        "id": 1,
+        "gridPos": {"h": 6, "w": 24, "x": 0, "y": 0},
+        "type": "stat",
+        "title": "🎮 GamesDev Factory Dashboard",
+        "targets": [
+          {
+            "refId": "A",
+            "datasource": {"type": "datasource", "uid": "-- Dashboard --"},
+            "panelId": 1
+          }
+        ],
+        "fieldConfig": {
+          "defaults": {
+            "mappings": [
+              {
+                "type": "value",
+                "options": {
+                  "": {"text": "Dashboard Online"}
+                }
+              }
+            ],
+            "color": {"fixedColor": "green", "mode": "fixed"}
+          }
+        },
+        "options": {
+          "colorMode": "background",
+          "graphMode": "none",
+          "justifyMode": "center"
+        }
+      },
+      {
+        "id": 2,
+        "gridPos": {"h": 6, "w": 6, "x": 0, "y": 6},
+        "type": "stat",
+        "title": "📥 Downloads",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 1000},
+                {"color": "green", "value": 5000}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 3,
+        "gridPos": {"h": 6, "w": 6, "x": 6, "y": 6},
+        "type": "stat",
+        "title": "💰 Revenue",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 500},
+                {"color": "green", "value": 1000}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 4,
+        "gridPos": {"h": 6, "w": 6, "x": 12, "y": 6},
+        "type": "stat",
+        "title": "👥 DAU",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "short",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 1000},
+                {"color": "green", "value": 5000}
+              ]
+            }
+          }
+        }
+      },
+      {
+        "id": 5,
+        "gridPos": {"h": 6, "w": 6, "x": 18, "y": 6},
+        "type": "stat",
+        "title": "📊 ARPDAU",
+        "options": {
+          "colorMode": "value",
+          "graphMode": "area",
+          "justifyMode": "auto"
+        },
+        "fieldConfig": {
+          "defaults": {
+            "unit": "currencyUSD",
+            "thresholds": {
+              "mode": "absolute",
+              "steps": [
+                {"color": "red", "value": null},
+                {"color": "yellow", "value": 0.05},
+                {"color": "green", "value": 0.10}
+              ]
+            }
+          }
+        }
+      }
+    ],
+    "time": {"from": "now-7d", "to": "now"}
+  },
+  "overwrite": true
+}
