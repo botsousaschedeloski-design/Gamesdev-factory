@@ -1,45 +1,78 @@
 /**
- * Grafana Metrics Endpoint
- * Formato compatível com Grafana SimpleJSON datasource
+ * Grafana SimpleJSON API
+ * Formato compatível com Grafana datasource plugin
  */
 
 const express = require('express');
 const router = express.Router();
 const { db } = require('../index');
 
-// Grafana datasource query endpoint
+/**
+ * POST /search
+ * Grafana query endpoint
+ */
 router.post('/search', async (req, res) => {
   try {
-    const { target } = req.body;
+    const { target, refId } = req.body;
     
-    // Query metrics from Firebase
-    const metricsRef = db.collection('metrics');
-    const snapshot = await metricsRef.orderBy('timestamp', 'desc').limit(1).get();
+    // Get latest metrics from Firebase
+    const overviewRef = db.collection('metrics').doc('overview');
+    const overviewDoc = await overviewRef.get();
+    const overview = overviewDoc.exists ? overviewDoc.data() : {};
     
-    const data = snapshot.docs.map(doc => ({
+    const now = Date.now();
+    
+    // Build response based on target
+    let datapoints = [];
+    
+    switch(target) {
+      case 'downloads':
+        datapoints = [[overview.downloadsToday || 0, now]];
+        break;
+      case 'revenue':
+        datapoints = [[overview.revenueToday || 0, now]];
+        break;
+      case 'dau':
+        datapoints = [[overview.dau || 0, now]];
+        break;
+      case 'arpdau':
+        datapoints = [[overview.arpdau || 0, now]];
+        break;
+      case 'markets':
+        // Return market data
+        const markets = overview.markets || {};
+        datapoints = Object.entries(markets).map(([market, data]) => [data.revenue || 0, now]);
+        break;
+      default:
+        datapoints = [[0, now]];
+    }
+    
+    res.json([{
       target: target || 'metrics',
-      datapoints: []
-    }));
+      refId: refId || 'A',
+      datapoints: datapoints
+    }]);
     
-    res.json(data);
   } catch (error) {
-    res.status(500).json({ error: error.message });
+    console.error('Grafana search error:', error);
+    res.status(500).json({ error: error.message, datapoints: [] });
   }
 });
 
-// Grafana metrics endpoint (time series)
+/**
+ * GET /metrics
+ * Time series metrics for Grafana
+ */
 router.get('/metrics', async (req, res) => {
   try {
     const now = Date.now();
-    const from = parseInt(req.query.from) || now - 24 * 60 * 60 * 1000; // 24h
-    const to = parseInt(req.query.to) || now;
     
     // Get overview metrics
     const overviewRef = db.collection('metrics').doc('overview');
     const overviewDoc = await overviewRef.get();
     const overview = overviewDoc.exists ? overviewDoc.data() : {};
     
-    // Format for Grafana
+    // Format for Grafana time series
     const metrics = [
       {
         target: 'downloads',
@@ -60,17 +93,40 @@ router.get('/metrics', async (req, res) => {
     ];
     
     res.json(metrics);
+    
   } catch (error) {
+    console.error('Grafana metrics error:', error);
     res.status(500).json({ error: error.message });
   }
 });
 
-// Health check for Grafana
+/**
+ * GET /health
+ * Health check for Grafana datasource
+ */
 router.get('/health', (req, res) => {
   res.json({
     status: 'ok',
     timestamp: new Date().toISOString(),
-    service: 'gamesdev-factory-api'
+    service: 'gamesdev-factory-grafana-api',
+    version: '1.0.0'
+  });
+});
+
+/**
+ * GET /
+ * API info
+ */
+router.get('/', (req, res) => {
+  res.json({
+    name: 'GamesDev Factory Grafana API',
+    version: '1.0.0',
+    endpoints: {
+      health: '/health',
+      metrics: '/metrics',
+      search: '/search (POST)'
+    },
+    documentation: 'https://github.com/botsousaschedeloski-design/Gamesdev-factory/blob/main/dashboard/GRAFANA_SETUP.md'
   });
 });
 
