@@ -1,0 +1,9 @@
+{
+  "appId": "ca-app-pub-XXXXXXXXXXXXXXXX~YYYYYYYYYY",
+  "adUnits": {
+    "banner": "ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY",
+    "interstitial": "ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY",
+    "rewarded": "ca-app-pub-XXXXXXXXXXXXXXXX/YYYYYYYYYY"
+  },
+  "game": "cricketquiz"
+}
