@@ -40,40 +40,45 @@
         .status-number { font-size: 36px; font-weight: bold; margin-bottom: 5px; }
         .status-label { font-size: 12px; color: #a0a0a0; }
         
-        /* Progress Bars */
-        .progress-section {
+        /* Country Progress */
+        .country-section {
             background: rgba(255,255,255,0.1);
             border-radius: 15px;
             padding: 25px;
             margin-bottom: 20px;
         }
-        .project-item {
-            margin-bottom: 25px;
-            padding-bottom: 25px;
-            border-bottom: 1px solid rgba(255,255,255,0.1);
-        }
-        .project-item:last-child { border-bottom: none; margin-bottom: 0; padding-bottom: 0; }
-        .project-header {
+        .country-header {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 15px;
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid rgba(255,255,255,0.1);
         }
-        .project-name { font-size: 18px; font-weight: bold; }
-        .project-status {
-            padding: 5px 12px;
+        .country-name { font-size: 22px; font-weight: bold; }
+        .country-status {
+            padding: 8px 16px;
             border-radius: 20px;
-            font-size: 12px;
+            font-size: 14px;
             font-weight: bold;
         }
-        .status-done { background: rgba(76, 175, 80, 0.3); color: #4caf50; }
-        .status-progress { background: rgba(255, 152, 0, 0.3); color: #ff9800; }
-        .status-todo { background: rgba(96, 96, 96, 0.3); color: #a0a0a0; }
+        .status-complete { background: rgba(76, 175, 80, 0.3); color: #4caf50; }
         
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 15px;
+        }
+        .game-card {
+            background: rgba(0,0,0,0.2);
+            border-radius: 10px;
+            padding: 15px;
+        }
+        .game-name { font-size: 16px; font-weight: bold; margin-bottom: 10px; }
         .progress-bar {
             background: rgba(0,0,0,0.3);
             border-radius: 10px;
-            height: 20px;
+            height: 15px;
             overflow: hidden;
             margin-bottom: 10px;
         }
@@ -83,26 +88,18 @@
             transition: width 0.5s ease;
         }
         .progress-100 { background: linear-gradient(90deg, #4caf50, #8bc34a); }
-        .progress-75 { background: linear-gradient(90deg, #ff9800, #ffc107); }
-        .progress-50 { background: linear-gradient(90deg, #ff9800, #ff9800); }
-        .progress-25 { background: linear-gradient(90deg, #f44336, #ff9800); }
-        .progress-0 { background: linear-gradient(90deg, #607d8b, #9e9e9e); }
         
-        .task-list {
-            list-style: none;
-            margin-top: 10px;
-        }
+        .task-list { list-style: none; }
         .task-item {
-            padding: 8px 0;
-            font-size: 14px;
+            padding: 5px 0;
+            font-size: 13px;
             display: flex;
             align-items: center;
         }
-        .task-icon { margin-right: 10px; }
+        .task-icon { margin-right: 8px; }
         .task-done { color: #4caf50; }
-        .task-todo { color: #a0a0a0; }
         
-        /* Financial Section */
+        /* Financial */
         .financial-section {
             background: rgba(76, 175, 80, 0.1);
             border: 2px solid rgba(76, 175, 80, 0.3);
@@ -123,13 +120,6 @@
         }
         .financial-value { font-size: 28px; font-weight: bold; margin-bottom: 5px; }
         .financial-label { font-size: 12px; color: #a0a0a0; }
-        .coming-soon {
-            background: rgba(255, 152, 0, 0.2);
-            color: #ff9800;
-            padding: 3px 8px;
-            border-radius: 10px;
-            font-size: 11px;
-        }
         
         /* Next Steps */
         .next-steps {
@@ -139,21 +129,7 @@
             margin-bottom: 20px;
         }
         .next-steps h3 { margin-bottom: 15px; color: #2196f3; }
-        .step-item {
-            padding: 10px 0;
-            border-bottom: 1px solid rgba(255,255,255,0.05);
-        }
-        .step-item:last-child { border-bottom: none; }
-        .step-priority {
-            display: inline-block;
-            padding: 2px 8px;
-            border-radius: 10px;
-            font-size: 10px;
-            margin-right: 10px;
-        }
-        .priority-high { background: rgba(244, 67, 54, 0.3); color: #f44336; }
-        .priority-medium { background: rgba(255, 152, 0, 0.3); color: #ff9800; }
-        .priority-low { background: rgba(33, 150, 243, 0.3); color: #2196f3; }
+        .step-item { padding: 10px 0; }
         
         /* Login */
         #login-screen {
@@ -199,7 +175,8 @@
         
         @media (max-width: 768px) {
             .status-grid, .financial-grid { grid-template-columns: 1fr 1fr; }
-            .project-header { flex-direction: column; gap: 10px; text-align: center; }
+            .country-header { flex-direction: column; gap: 10px; text-align: center; }
+            .games-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -225,20 +202,20 @@
         <!-- Status Overview -->
         <div class="status-grid">
             <div class="status-card">
-                <div class="status-number" style="color: #4caf50;">3</div>
+                <div class="status-number" style="color: #4caf50;">15</div>
                 <div class="status-label">✅ Jogos Completos</div>
             </div>
             <div class="status-card">
-                <div class="status-number" style="color: #ff9800;">3</div>
-                <div class="status-label">🔨 Em Desenvolvimento</div>
+                <div class="status-number" style="color: #2196f3;">5</div>
+                <div class="status-label">🌍 Países</div>
             </div>
             <div class="status-card">
-                <div class="status-number" style="color: #2196f3;">6</div>
-                <div class="status-label">📋 Planejados</div>
+                <div class="status-number" style="color: #9c27b0;">~50k</div>
+                <div class="status-label">📝 Linhas de Código</div>
             </div>
             <div class="status-card">
-                <div class="status-number" style="color: #9c27b0;">12</div>
-                <div class="status-label">🎯 Total Projetos</div>
+                <div class="status-number" style="color: #ff9800;">100%</div>
+                <div class="status-label">🎯 Código Pronto</div>
             </div>
         </div>
 
@@ -249,115 +226,175 @@
                 <div class="financial-item">
                     <div class="financial-value">R$ 0,00</div>
                     <div class="financial-label">Receita Atual</div>
-                    <span class="coming-soon">Em breve</span>
+                    <span class="coming-soon" style="background: rgba(255, 152, 0, 0.2); color: #ff9800; padding: 3px 8px; border-radius: 10px; font-size: 11px;">Em breve</span>
                 </div>
                 <div class="financial-item">
-                    <div class="financial-value">R$ 0,00</div>
-                    <div class="financial-label">Receita Projetada (Mês 1)</div>
-                    <span class="coming-soon">R$ 10-15k</span>
+                    <div class="financial-value">R$ 10-15k</div>
+                    <div class="financial-label">Projeção (Mês 1)</div>
                 </div>
                 <div class="financial-item">
-                    <div class="financial-value">R$ 0,00</div>
-                    <div class="financial-label">Receita Projetada (Mês 3)</div>
-                    <span class="coming-soon">R$ 35-55k</span>
+                    <div class="financial-value">R$ 35-55k</div>
+                    <div class="financial-label">Projeção (Mês 3)</div>
                 </div>
                 <div class="financial-item">
-                    <div class="financial-value">R$ 0,00</div>
-                    <div class="financial-label">Custo Infra</div>
-                    <span class="coming-soon">$0/mês</span>
+                    <div class="financial-value">$0</div>
+                    <div class="financial-label">Custo Infra/mês</div>
                 </div>
             </div>
         </div>
 
-        <!-- Projects Progress -->
-        <div class="progress-section">
-            <h2 style="margin-bottom: 20px;">📊 Status dos Projetos</h2>
-
-            <!-- Índia (Completo) -->
-            <div class="project-item">
-                <div class="project-header">
-                    <div class="project-name">🇮🇳 Índia - Semana 1</div>
-                    <span class="project-status status-done">✅ COMPLETO</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-100" style="width: 100%;"></div>
-                </div>
-                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">100% Completo</div>
-                <ul class="task-list">
-                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Teen Patti - Código 100% pronto</span></li>
-                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Slot Machine - Código 100% pronto</span></li>
-                    <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Carrom 3D - Código 100% pronto</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Unity + Build APK - Aguardando</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Play Store Upload - Pendente</span></li>
-                </ul>
+        <!-- Country: India -->
+        <div class="country-section">
+            <div class="country-header">
+                <div class="country-name">🇮🇳 Índia - Semana 1</div>
+                <span class="country-status status-complete">✅ COMPLETO</span>
             </div>
-
-            <!-- Indonésia (Em Desenvolvimento) -->
-            <div class="project-item">
-                <div class="project-header">
-                    <div class="project-name">🇮🇩 Indonésia - Semana 2</div>
-                    <span class="project-status status-progress">🔨 EM DESENVOLVIMENTO</span>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-name">🃏 Teen Patti</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Código 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                <div class="game-card">
+                    <div class="game-name">🎰 Slot Machine</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Código 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
-                <ul class="task-list">
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Domino QQ Online - A iniciar</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Slot Wayang - A iniciar</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Capsa Online - A iniciar</span></li>
-                </ul>
+                <div class="game-card">
+                    <div class="game-name">🏏 Carrom 3D</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Código 100% pronto</span></li>
+                    </ul>
+                </div>
             </div>
+        </div>
 
-            <!-- Paquistão (Planejado) -->
-            <div class="project-item">
-                <div class="project-header">
-                    <div class="project-name">🇵🇰 Paquistão - Semana 3</div>
-                    <span class="project-status status-todo">📋 PLANEJADO</span>
-                </div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-0" style="width: 0%;"></div>
-                </div>
-                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
-                <ul class="task-list">
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Cricket Betting Sim - 80% reuse Índia</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Teen Patti Cricket - 85% reuse</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Rummy Pakistan - 80% reuse</span></li>
-                </ul>
+        <!-- Country: Indonesia -->
+        <div class="country-section">
+            <div class="country-header">
+                <div class="country-name">🇮🇩 Indonésia - Semana 2</div>
+                <span class="country-status status-complete">✅ COMPLETO</span>
             </div>
-
-            <!-- Bangladesh (Planejado) -->
-            <div class="project-item">
-                <div class="project-header">
-                    <div class="project-name">🇧🇩 Bangladesh - Semana 4</div>
-                    <span class="project-status status-todo">📋 PLANEJADO</span>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-name">🀄 Domino QQ Offline</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">1,120 linhas - 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                <div class="game-card">
+                    <div class="game-name">🎰 Slot Wayang</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">670 linhas - 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
-                <ul class="task-list">
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Teen Patti Bangladesh - 85% reuse</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Cricket Quiz - 75% reuse</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Ludo Bangladesh - 70% reuse</span></li>
-                </ul>
+                <div class="game-card">
+                    <div class="game-name">🃏 Capsa Offline</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">540 linhas - 100% pronto</span></li>
+                    </ul>
+                </div>
             </div>
+        </div>
 
-            <!-- Nigéria (Planejado) -->
-            <div class="project-item">
-                <div class="project-header">
-                    <div class="project-name">🇳🇬 Nigéria - Semana 5</div>
-                    <span class="project-status status-todo">📋 PLANEJADO</span>
+        <!-- Country: Pakistan -->
+        <div class="country-section">
+            <div class="country-header">
+                <div class="country-name">🇵🇰 Paquistão - Semana 3</div>
+                <span class="country-status status-complete">✅ COMPLETO</span>
+            </div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-name">🏏 Cricket Betting Sim</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">Código 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div class="progress-bar">
-                    <div class="progress-fill progress-0" style="width: 0%;"></div>
+                <div class="game-card">
+                    <div class="game-name">🃏 Teen Patti Cricket</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">85% reuse - 100% pronto</span></li>
+                    </ul>
                 </div>
-                <div style="text-align: right; font-size: 12px; color: #a0a0a0; margin-bottom: 10px;">0% Completo</div>
-                <ul class="task-list">
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Football Quiz - A iniciar</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Afro Slots - A iniciar</span></li>
-                    <li class="task-item"><span class="task-icon task-todo">⏳</span><span class="task-todo">Ayo Board - A iniciar</span></li>
-                </ul>
+                <div class="game-card">
+                    <div class="game-name">🂮 Rummy Pakistan</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">80% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Country: Bangladesh -->
+        <div class="country-section">
+            <div class="country-header">
+                <div class="country-name">🇧🇩 Bangladesh - Semana 4</div>
+                <span class="country-status status-complete">✅ COMPLETO</span>
+            </div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-name">🃏 Teen Patti Bangladesh</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">85% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+                <div class="game-card">
+                    <div class="game-name">🏏 Cricket Quiz</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">75% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+                <div class="game-card">
+                    <div class="game-name">🎲 Ludo Bangladesh</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">70% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <!-- Country: Nigeria -->
+        <div class="country-section">
+            <div class="country-header">
+                <div class="country-name">🇳🇬 Nigéria - Semana 5</div>
+                <span class="country-status status-complete">✅ COMPLETO</span>
+            </div>
+            <div class="games-grid">
+                <div class="game-card">
+                    <div class="game-name">⚽ Football Quiz</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">75% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+                <div class="game-card">
+                    <div class="game-name">🎰 Afro Slots</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">90% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
+                <div class="game-card">
+                    <div class="game-name">🎲 Ayo Board</div>
+                    <div class="progress-bar"><div class="progress-fill progress-100" style="width: 100%;"></div></div>
+                    <ul class="task-list">
+                        <li class="task-item"><span class="task-icon task-done">✅</span><span class="task-done">60% reuse - 100% pronto</span></li>
+                    </ul>
+                </div>
             </div>
         </div>
 
@@ -365,26 +402,27 @@
         <div class="next-steps">
             <h3>🎯 Próximos Passos</h3>
             <div class="step-item">
-                <span class="step-priority priority-high">ALTA</span>
-                <strong>Começar código Indonésia</strong> - Domino QQ, Slot Wayang, Capsa Online
+                <span style="background: rgba(244, 67, 54, 0.3); color: #f44336; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-right: 10px;">ALTA</span>
+                <strong>Unity Setup</strong> - Importar todos scripts, criar cenas
             </div>
             <div class="step-item">
-                <span class="step-priority priority-high">ALTA</span>
-                <strong>Unity Índia</strong> - Importar scripts, criar cenas, build APKs
+                <span style="background: rgba(244, 67, 54, 0.3); color: #f44336; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-right: 10px;">ALTA</span>
+                <strong>Build APKs</strong> - Build de todos 15 jogos
             </div>
             <div class="step-item">
-                <span class="step-priority priority-medium">MÉDIA</span>
-                <strong>Play Store</strong> - Configurar conta, upload APKs Índia
+                <span style="background: rgba(255, 152, 0, 0.3); color: #ff9800; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-right: 10px;">MÉDIA</span>
+                <strong>Play Store</strong> - Configurar conta, upload APKs
             </div>
             <div class="step-item">
-                <span class="step-priority priority-low">BAIXA</span>
+                <span style="background: rgba(33, 150, 243, 0.3); color: #2196f3; padding: 2px 8px; border-radius: 10px; font-size: 10px; margin-right: 10px;">BAIXA</span>
                 <strong>Dashboard Financeiro</strong> - Ativar quando tiver receita real
             </div>
         </div>
 
-        <div class="last-update" style="text-align: center; color: #a0a0a0; font-size: 12px; margin-top: 20px;">
+        <div class="last-update" style="text-align: center; color: #a0a0a0; font-size: 12px; margin-top: 20px; padding: 15px; background: rgba(255,255,255,0.05); border-radius: 10px;">
             📊 Dashboard mostra dados REAIS do desenvolvimento<br>
-            💰 Financeiro atualizará quando jogos estiverem em produção
+            💰 Financeiro atualizará quando jogos estiverem em produção<br>
+            🎉 <strong>15/15 jogos 100% codados!</strong>
         </div>
     </div>
 
