@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GamesDev Factory - Dashboard</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-white shadow">
+        <div class="max-w-7xl mx-auto py-6 px-4 sm:px-6 lg:px-8">
+            <h1 class="text-3xl font-bold text-gray-900">🎮 GamesDev Factory Dashboard</h1>
+        </div>
+    </header>
+
+    <main class="max-w-7xl mx-auto py-6 sm:px-6 lg:px-8">
+        <!-- Overview Cards -->
+        <div class="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4 mb-8">
+            <!-- Downloads -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-4xl">📥</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Downloads</dt>
+                                <dd class="text-2xl font-semibold text-gray-900" id="totalDownloads">-</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Acessos -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-4xl">👥</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Acessos (Hoje)</dt>
+                                <dd class="text-2xl font-semibold text-gray-900" id="totalAccesses">-</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Receita -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-4xl">💰</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Receita</dt>
+                                <dd class="text-2xl font-semibold text-gray-900" id="totalRevenue">-</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Jogos -->
+            <div class="bg-white overflow-hidden shadow rounded-lg">
+                <div class="p-5">
+                    <div class="flex items-center">
+                        <div class="flex-shrink-0">
+                            <span class="text-4xl">🎮</span>
+                        </div>
+                        <div class="ml-5 w-0 flex-1">
+                            <dl>
+                                <dt class="text-sm font-medium text-gray-500 truncate">Jogos Ativos</dt>
+                                <dd class="text-2xl font-semibold text-gray-900" id="activeGames">-</dd>
+                            </dl>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Charts -->
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-6 mb-8">
+            <!-- Daily Access Chart -->
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">📊 Acessos Diários (Últimos 7 Dias)</h2>
+                <canvas id="accessChart"></canvas>
+            </div>
+
+            <!-- Revenue by Region -->
+            <div class="bg-white shadow rounded-lg p-6">
+                <h2 class="text-lg font-medium text-gray-900 mb-4">💰 Receita por Região</h2>
+                <canvas id="revenueChart"></canvas>
+            </div>
+        </div>
+
+        <!-- Games Table -->
+        <div class="bg-white shadow rounded-lg mb-8">
+            <div class="px-6 py-4 border-b border-gray-200">
+                <h2 class="text-lg font-medium text-gray-900">🎮 Jogos por Região</h2>
+            </div>
+            <div class="overflow-x-auto">
+                <table class="min-w-full divide-y divide-gray-200">
+                    <thead class="bg-gray-50">
+                        <tr>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Jogo</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Região</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Downloads</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Acessos</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Receita</th>
+                            <th class="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Status</th>
+                        </tr>
+                    </thead>
+                    <tbody class="bg-white divide-y divide-gray-200" id="gamesTable">
+                        <!-- Games will be loaded here -->
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Mock data (substituir com API real depois)
+        const mockData = {
+            overview: {
+                totalDownloads: 125450,
+                totalAccesses: 45230,
+                totalRevenue: 1234,
+                activeGames: 15
+            },
+            games: [
+                { id: 'teenpatti', name: 'Teen Patti', region: '🇮🇳 Índia', downloads: 25450, accesses: 12340, revenue: 456, status: 'active' },
+                { id: 'slotmachine', name: 'Slot Machine', region: '🇮🇳 Índia', downloads: 18230, accesses: 8450, revenue: 312, status: 'active' },
+                { id: 'carrom3d', name: 'Carrom 3D', region: '🇮🇳 Índia', downloads: 15670, accesses: 6780, revenue: 234, status: 'active' },
+                { id: 'dominoqq', name: 'Domino QQ', region: '🇮🇩 Indonésia', downloads: 12340, accesses: 5670, revenue: 198, status: 'active' },
+                { id: 'slotwayang', name: 'Slot Wayang', region: '🇮🇩 Indonésia', downloads: 10230, accesses: 4560, revenue: 156, status: 'active' },
+                { id: 'capsaoffline', name: 'Capsa Offline', region: '🇮🇩 Indonésia', downloads: 8760, accesses: 3450, revenue: 134, status: 'active' },
+                { id: 'cricketbetting', name: 'Cricket Betting', region: '🇵🇰 Paquistão', downloads: 7650, accesses: 2890, revenue: 112, status: 'active' },
+                { id: 'teenpatticricket', name: 'Teen Patti Cricket', region: '🇵🇰 Paquistão', downloads: 6540, accesses: 2340, revenue: 98, status: 'active' },
+                { id: 'rummy', name: 'Rummy', region: '🇵🇰 Paquistão', downloads: 5430, accesses: 1890, revenue: 87, status: 'active' },
+                { id: 'teenpattibd', name: 'Teen Patti BD', region: '🇧🇩 Bangladesh', downloads: 4320, accesses: 1560, revenue: 76, status: 'active' },
+                { id: 'cricketquiz', name: 'Cricket Quiz', region: '🇧🇩 Bangladesh', downloads: 3210, accesses: 1230, revenue: 65, status: 'active' },
+                { id: 'ludobd', name: 'Ludo Bangladesh', region: '🇧🇩 Bangladesh', downloads: 2890, accesses: 980, revenue: 54, status: 'active' },
+                { id: 'footballquiz', name: 'Football Quiz', region: '🇳🇬 Nigéria', downloads: 2340, accesses: 780, revenue: 43, status: 'active' },
+                { id: 'afroslots', name: 'Afro Slots', region: '🇳🇬 Nigéria', downloads: 1890, accesses: 560, revenue: 32, status: 'active' },
+                { id: 'ayoboard', name: 'Ayo Board', region: '🇳🇬 Nigéria', downloads: 1450, accesses: 340, revenue: 21, status: 'active' }
+            ],
+            dailyAccess: [
+                { date: '2026-03-04', accesses: 45230 },
+                { date: '2026-03-05', accesses: 38450 },
+                { date: '2026-03-06', accesses: 42100 },
+                { date: '2026-03-07', accesses: 48900 },
+                { date: '2026-03-08', accesses: 45230 },
+                { date: '2026-03-09', accesses: 32450 },
+                { date: '2026-03-10', accesses: 28900 }
+            ],
+            revenueByRegion: {
+                '🇮🇳 Índia': 456,
+                '🇮🇩 Indonésia': 312,
+                '🇵🇰 Paquistão': 234,
+                '🇧🇩 Bangladesh': 150,
+                '🇳🇬 Nigéria': 100
+            }
+        };
+
+        // Load overview
+        document.getElementById('totalDownloads').textContent = mockData.overview.totalDownloads.toLocaleString();
+        document.getElementById('totalAccesses').textContent = mockData.overview.totalAccesses.toLocaleString();
+        document.getElementById('totalRevenue').textContent = `$${mockData.overview.totalRevenue}`;
+        document.getElementById('activeGames').textContent = `${mockData.overview.activeGames}/15`;
+
+        // Load games table
+        const gamesTable = document.getElementById('gamesTable');
+        mockData.games.forEach(game => {
+            const row = document.createElement('tr');
+            row.innerHTML = `
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm font-medium text-gray-900">${game.name}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${game.region}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${game.downloads.toLocaleString()}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">${game.accesses.toLocaleString()}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <div class="text-sm text-gray-900">$${game.revenue}</div>
+                </td>
+                <td class="px-6 py-4 whitespace-nowrap">
+                    <span class="px-2 inline-flex text-xs leading-5 font-semibold rounded-full ${game.status === 'active' ? 'bg-green-100 text-green-800' : 'bg-red-100 text-red-800'}">
+                        ${game.status === 'active' ? '✅ Ativo' : '❌ Inativo'}
+                    </span>
+                </td>
+            `;
+            gamesTable.appendChild(row);
+        });
+
+        // Access Chart
+        const accessCtx = document.getElementById('accessChart').getContext('2d');
+        new Chart(accessCtx, {
+            type: 'bar',
+            data: {
+                labels: mockData.dailyAccess.map(d => new Date(d.date).toLocaleDateString('pt-BR')),
+                datasets: [{
+                    label: 'Acessos',
+                    data: mockData.dailyAccess.map(d => d.accesses),
+                    backgroundColor: 'rgba(59, 130, 246, 0.5)',
+                    borderColor: 'rgb(59, 130, 246)',
+                    borderWidth: 1
+                }]
+            },
+            options: {
+                responsive: true,
+                scales: {
+                    y: {
+                        beginAtZero: true
+                    }
+                }
+            }
+        });
+
+        // Revenue Chart
+        const revenueCtx = document.getElementById('revenueChart').getContext('2d');
+        new Chart(revenueCtx, {
+            type: 'pie',
+            data: {
+                labels: Object.keys(mockData.revenueByRegion),
+                datasets: [{
+                    data: Object.values(mockData.revenueByRegion),
+                    backgroundColor: [
+                        'rgba(239, 68, 68, 0.5)',
+                        'rgba(59, 130, 246, 0.5)',
+                        'rgba(16, 185, 129, 0.5)',
+                        'rgba(245, 158, 11, 0.5)',
+                        'rgba(139, 92, 246, 0.5)'
+                    ]
+                }]
+            },
+            options: {
+                responsive: true
+            }
+        });
+    </script>
+</body>
+</html>
