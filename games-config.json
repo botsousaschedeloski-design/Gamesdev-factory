@@ -1,0 +1,124 @@
+{
+  "games": [
+    {
+      "id": "teenpatti",
+      "name": "Teen Patti",
+      "region": "india",
+      "packageName": "com.afonso.fxtrade.teenpatti",
+      "appId": "ca-app-pub-6043206415527617~4532778232",
+      "status": "active"
+    },
+    {
+      "id": "slotmachine",
+      "name": "Slot Machine",
+      "region": "india",
+      "packageName": "com.afonso.fxtrade.slotmachine",
+      "appId": "ca-app-pub-6043206415527617~7154567560",
+      "status": "active"
+    },
+    {
+      "id": "carrom3d",
+      "name": "Carrom 3D",
+      "region": "india",
+      "packageName": "com.afonso.fxtrade.carrom3d",
+      "appId": "ca-app-pub-6043206415527617~5629403337",
+      "status": "active"
+    },
+    {
+      "id": "dominoqq",
+      "name": "Domino QQ",
+      "region": "indonesia",
+      "packageName": "com.afonso.fxtrade.dominoqq",
+      "appId": "ca-app-pub-6043206415527617~4369126709",
+      "status": "active"
+    },
+    {
+      "id": "slotwayang",
+      "name": "Slot Wayang",
+      "region": "indonesia",
+      "packageName": "com.afonso.fxtrade.slotwayang",
+      "appId": "ca-app-pub-6043206415527617~5649914202",
+      "status": "active"
+    },
+    {
+      "id": "capsaoffline",
+      "name": "Capsa Offline",
+      "region": "indonesia",
+      "packageName": "com.afonso.fxtrade.capsaoffline",
+      "appId": "ca-app-pub-6043206415527617~3725983085",
+      "status": "active"
+    },
+    {
+      "id": "cricketbetting",
+      "name": "Cricket Betting",
+      "region": "pakistan",
+      "packageName": "com.afonso.fxtrade.cricketbetting",
+      "appId": "ca-app-pub-6043206415527617~8084505853",
+      "status": "active"
+    },
+    {
+      "id": "teenpatticricket",
+      "name": "Teen Patti Cricket",
+      "region": "pakistan",
+      "packageName": "com.afonso.fxtrade.teenpatticricket",
+      "appId": "ca-app-pub-6043206415527617~2397569484",
+      "status": "active"
+    },
+    {
+      "id": "rummy",
+      "name": "Rummy",
+      "region": "pakistan",
+      "packageName": "com.afonso.fxtrade.rummy",
+      "appId": "ca-app-pub-6043206415527617~7968480429",
+      "status": "active"
+    },
+    {
+      "id": "teenpattibd",
+      "name": "Teen Patti Bangladesh",
+      "region": "bangladesh",
+      "packageName": "com.afonso.fxtrade.teenpattibd",
+      "appId": "ca-app-pub-6043206415527617~6612146660",
+      "status": "active"
+    },
+    {
+      "id": "cricketquiz",
+      "name": "Cricket Quiz",
+      "region": "bangladesh",
+      "packageName": "com.afonso.fxtrade.cricketquiz",
+      "appId": "ca-app-pub-6043206415527617~7410223014",
+      "status": "active"
+    },
+    {
+      "id": "ludobd",
+      "name": "Ludo Bangladesh",
+      "region": "bangladesh",
+      "packageName": "com.afonso.fxtrade.ludobd",
+      "appId": "ca-app-pub-6043206415527617~5063115482",
+      "status": "active"
+    },
+    {
+      "id": "footballquiz",
+      "name": "Football Quiz",
+      "region": "nigeria",
+      "packageName": "com.afonso.fxtrade.footballquiz",
+      "appId": "ca-app-pub-6043206415527617~4600081056",
+      "status": "active"
+    },
+    {
+      "id": "afroslots",
+      "name": "Afro Slots",
+      "region": "nigeria",
+      "packageName": "com.afonso.fxtrade.afroslots",
+      "appId": "ca-app-pub-6043206415527617~1690158324",
+      "status": "active"
+    },
+    {
+      "id": "ayoboard",
+      "name": "Ayo Board",
+      "region": "nigeria",
+      "packageName": "com.afonso.fxtrade.ayoboard",
+      "appId": "ca-app-pub-6043206415527617~2613191900",
+      "status": "active"
+    }
+  ]
+}

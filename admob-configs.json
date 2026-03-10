@@ -1,0 +1,137 @@
+[
+  {
+    "jogo": "Teen Patti",
+    "package": "com.afonso.fxtrade.teenpatti",
+    "app_id": "ca-app-pub-6043206415527617~4532778232",
+    "banner": "ca-app-pub-6043206415527617/4448513173",
+    "interstitial": "ca-app-pub-6043206415527617/1921946828",
+    "rewarded": "ca-app-pub-6043206415527617/1822349830",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Slot Machine",
+    "package": "com.afonso.fxtrade.slotmachine",
+    "app_id": "ca-app-pub-6043206415527617~7154567560",
+    "banner": "ca-app-pub-6043206415527617/8722800101",
+    "interstitial": "ca-app-pub-6043206415527617/7409718436",
+    "rewarded": "ca-app-pub-6043206415527617/6551932335",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Carrom 3D",
+    "package": "com.afonso.fxtrade.carrom3d",
+    "app_id": "ca-app-pub-6043206415527617~5629403337",
+    "banner": "ca-app-pub-6043206415527617/5238850662",
+    "interstitial": "ca-app-pub-6043206415527617/3925768999",
+    "rewarded": "ca-app-pub-6043206415527617/2784582297",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Domino QQ",
+    "package": "com.afonso.fxtrade.dominoqq",
+    "app_id": "ca-app-pub-6043206415527617~4369126709",
+    "banner": "ca-app-pub-6043206415527617/6476415290",
+    "interstitial": "ca-app-pub-6043206415527617/3251486150",
+    "rewarded": "ca-app-pub-6043206415527617/1471500629",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Slot Wayang",
+    "package": "com.afonso.fxtrade.slotwayang",
+    "app_id": "ca-app-pub-6043206415527617~5649914202",
+    "banner": "ca-app-pub-6043206415527617/9158418952",
+    "interstitial": "ca-app-pub-6043206415527617/6096636764",
+    "rewarded": "ca-app-pub-6043206415527617/5163333621",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Capsa Offline",
+    "package": "com.afonso.fxtrade.capsaoffline",
+    "app_id": "ca-app-pub-6043206415527617~3725983085",
+    "banner": "ca-app-pub-6043206415527617/3850251950",
+    "interstitial": "ca-app-pub-6043206415527617/9625322814",
+    "rewarded": "ca-app-pub-6043206415527617/2537170282",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Cricket Betting",
+    "package": "com.afonso.fxtrade.cricketbetting",
+    "app_id": "ca-app-pub-6043206415527617~8084505853",
+    "banner": "ca-app-pub-6043206415527617/8116295447",
+    "interstitial": "ca-app-pub-6043206415527617/8986523982",
+    "rewarded": "ca-app-pub-6043206415527617/8196186491",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Teen Patti Cricket",
+    "package": "com.afonso.fxtrade.teenpatticricket",
+    "app_id": "ca-app-pub-6043206415527617~2397569484",
+    "banner": "ca-app-pub-6043206415527617/7653765596",
+    "interstitial": "ca-app-pub-6043206415527617/6340683923",
+    "rewarded": "ca-app-pub-6043206415527617/2388850681",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Rummy",
+    "package": "com.afonso.fxtrade.rummy",
+    "app_id": "ca-app-pub-6043206415527617~7968480429",
+    "banner": "ca-app-pub-6043206415527617/5047278977",
+    "interstitial": "ca-app-pub-6043206415527617/5570023155",
+    "rewarded": "ca-app-pub-6043206415527617/3059914460",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Teen Patti Bangladesh",
+    "package": "com.afonso.fxtrade.teenpattibd",
+    "app_id": "ca-app-pub-6043206415527617~6612146660",
+    "banner": "ca-app-pub-6043206415527617/9608865151",
+    "interstitial": "ca-app-pub-6043206415527617/1075769015",
+    "rewarded": "ca-app-pub-6043206415527617/8295783488",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Cricket Quiz",
+    "package": "com.afonso.fxtrade.cricketquiz",
+    "app_id": "ca-app-pub-6043206415527617~7410223014",
+    "banner": "ca-app-pub-6043206415527617/3734197307",
+    "interstitial": "ca-app-pub-6043206415527617/1746832793",
+    "rewarded": "ca-app-pub-6043206415527617/6982701816",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Ludo Bangladesh",
+    "package": "com.afonso.fxtrade.ludobd",
+    "app_id": "ca-app-pub-6043206415527617~5063115482",
+    "banner": "ca-app-pub-6043206415527617/6803213779",
+    "interstitial": "ca-app-pub-6043206415527617/3790542208",
+    "rewarded": "ca-app-pub-6043206415527617/7449605679",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Football Quiz",
+    "package": "com.afonso.fxtrade.footballquiz",
+    "app_id": "ca-app-pub-6043206415527617~4600081056",
+    "banner": "ca-app-pub-6043206415527617/2421115630",
+    "interstitial": "ca-app-pub-6043206415527617/8851297194",
+    "rewarded": "ca-app-pub-6043206415527617/4177050435",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Afro Slots",
+    "package": "com.afonso.fxtrade.afroslots",
+    "app_id": "ca-app-pub-6043206415527617~1690158324",
+    "banner": "ca-app-pub-6043206415527617/4823442330",
+    "interstitial": "ca-app-pub-6043206415527617/4356538475",
+    "rewarded": "ca-app-pub-6043206415527617/7538215522",
+    "status": "✅ Configurado"
+  },
+  {
+    "jogo": "Ayo Board",
+    "package": "com.afonso.fxtrade.ayoboard",
+    "app_id": "ca-app-pub-6043206415527617~2613191900",
+    "banner": "ca-app-pub-6043206415527617/2401438917",
+    "interstitial": "ca-app-pub-6043206415527617/1088357242",
+    "rewarded": "ca-app-pub-6043206415527617/3043456804",
+    "status": "✅ Configurado"
+  }
+]
