@@ -1,0 +1,23 @@
+[build]
+builder = "NODEJS"
+
+[deploy]
+startCommand = "npm start"
+restartPolicyType = "ON_FAILURE"
+healthcheckPath = "/api/dashboard/overview"
+healthcheckTimeout = 100
+
+[[cron]]
+schedule = "0 9,15,21 * * *"
+command = "node src/cron/updateMetrics.js"
+name = "update-metrics"
+
+[[cron]]
+schedule = "0 0 * * *"
+command = "node src/cron/dailyBackup.js"
+name = "daily-backup"
+
+[[cron]]
+schedule = "0 3 * * 0"
+command = "node src/cron/weeklyCleanup.js"
+name = "weekly-cleanup"

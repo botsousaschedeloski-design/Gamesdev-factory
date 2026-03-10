@@ -1,0 +1,36 @@
+services:
+  - type: web
+    name: gamesdev-dashboard-api
+    env: node
+    region: oregon
+    plan: free
+    buildCommand: npm install
+    startCommand: npm start
+    healthCheckPath: /api/dashboard/overview
+    envVars:
+      - key: DATABASE_URL
+        sync: false
+      - key: ADMOB_API_KEY
+        sync: false
+      - key: PORT
+        value: 3000
+      - key: NODE_ENV
+        value: production
+
+  - type: cron
+    name: update-metrics-cron
+    env: node
+    schedule: "0 9,15,21 * * *"
+    command: node src/cron/updateMetrics.js
+
+  - type: cron
+    name: daily-backup-cron
+    env: node
+    schedule: "0 0 * * *"
+    command: node src/cron/dailyBackup.js
+
+  - type: cron
+    name: weekly-cleanup-cron
+    env: node
+    schedule: "0 3 * * 0"
+    command: node src/cron/weeklyCleanup.js
